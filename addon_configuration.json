@@ -1,0 +1,15 @@
+{
+  "key": "NaviNIBS_LSL_Output",
+  "Extras": {
+    "LSLOutputStream": {
+      "ClassName": "LSLOutputSource",
+      "importModule": "NaviNIBS_LSL_Output.Navigator.LSLOutputSource"
+    }
+  },
+  "SessionAttrs": {
+    "LSLOutput": {
+      "ClassName": "LSLOutputConfiguration",
+      "importModule": "NaviNIBS_LSL_Output.Navigator.Model.LSLOutputConfiguration"
+    }
+  }
+}
