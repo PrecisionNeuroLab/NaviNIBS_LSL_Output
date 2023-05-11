@@ -16,6 +16,7 @@ from RTNaBS.util.Transforms import concatenateTransforms, applyTransform, invert
 from NaviNIBS_LSL_Output.Navigator.Model.LSLOutputConfiguration import LSLOutputConfiguration
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 posAndQuatSuffixes = ['Tx', 'Ty', 'Tz', 'Qw', 'Qx', 'Qy', 'Qz']
 xyzSuffixes = ['Tx', 'Ty', 'Tz']
@@ -191,6 +192,8 @@ class LSLOutputSource(AddonExtra):
 
             timeOfLastUpdate = lsl.local_clock()
 
+            logger.debug('Preparing sample to send')
+
             doSendStrSample = False
 
             if self._targetChanged.is_set():
@@ -206,6 +209,7 @@ class LSLOutputSource(AddonExtra):
             def encodeSamplePart_transf(transf: np.ndarray | None,
                                         prefix: str,
                                         sample: np.ndarray):
+                #logger.debug(f'encodeSamplePart_transf: {prefix}')
                 if transf is None:
                     pq = np.full(7, np.nan)
                 else:
@@ -218,6 +222,7 @@ class LSLOutputSource(AddonExtra):
             def encodeSamplePart_coord(coord: np.ndarray | None,
                                        prefix: str,
                                        sample: np.ndarray):
+                #logger.debug(f'encodeSamplePart_coord: {prefix}')
                 if coord is None:
                     coord = np.full(3, np.nan)
                 for i, suffix in enumerate(xyzSuffixes):
@@ -225,6 +230,7 @@ class LSLOutputSource(AddonExtra):
                     sample[self._floatChannelMapping.index(key)] = coord[i]
 
             def getToolToOutputSpaceTransf(toolKey: str) -> np.ndarray | None:
+                #logger.debug(f'getToolToOutputSpaceTransf')
                 match self._config.streamPosesInSpace:
                     case 'MRI':
                         toolTrackerToCameraTransf = self._targetingCoordinator.positionsClient.getLatestTransf(
@@ -266,6 +272,7 @@ class LSLOutputSource(AddonExtra):
                 encodeSamplePart_transf(transf, 'activeCoilPose', sample)
 
                 # also include angle from midline
+                #logger.debug('get angle from midline')
                 key = 'activeCoilAngleFromMidline'
                 sample[self._floatChannelMapping.index(key)] = self._targetingCoordinator.currentPoseMetrics.getAngleFromMidline()
 
@@ -306,6 +313,7 @@ class LSLOutputSource(AddonExtra):
                     sample[self._floatChannelMapping.index('currentTargetDepthOffset')] = target.depthOffset
 
             if len(sample) > 0:
+                logger.debug('Pushing float sample')
                 self._floatOutputStream.push_sample(sample, lsl.local_clock())
 
             if doSendStrSample:
@@ -318,8 +326,9 @@ class LSLOutputSource(AddonExtra):
                         targetName = target.key
                     strSample[self._strChannelMapping.index('currentTargetName')] = targetName
 
+                logger.debug('Pushing str sample')
                 self._strOutputStream.push_sample(strSample)
 
-
+            logger.debug('End of loop')
 
 
