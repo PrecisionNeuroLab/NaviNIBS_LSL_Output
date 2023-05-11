@@ -20,7 +20,7 @@ class LSLOutputConfiguration(AddonSessionConfig):
 
     _streamFloatsAsIntermittent: bool = False
 
-    _updateRate: float = 5  # in Hz
+    _updateRate: float = 2  # in Hz
 
     def __attrs_post_init__(self):
         super().__attrs_post_init__()
