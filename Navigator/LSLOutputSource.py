@@ -10,7 +10,7 @@ import pytransform3d.transformations as ptt
 
 from RTNaBS.Navigator.Model.Addons import AddonExtra
 from RTNaBS.Navigator.TargetingCoordinator import TargetingCoordinator
-from RTNaBS.util.Asyncio import asyncTryAndLogExceptionOnError
+from RTNaBS.util.Asyncio import asyncTryAndLogExceptionOnError, asyncWait
 from RTNaBS.util.Transforms import concatenateTransforms, applyTransform, invertTransform
 
 from NaviNIBS_LSL_Output.Navigator.Model.LSLOutputConfiguration import LSLOutputConfiguration
@@ -75,7 +75,6 @@ class LSLOutputSource(AddonExtra):
                     floatChannelUnits.append('mm')
                 else:
                     floatChannelUnits.append('normalized')
-
 
         if self._config.doStreamTrackerPose:
             for suffix in posAndQuatSuffixes:
@@ -179,7 +178,7 @@ class LSLOutputSource(AddonExtra):
 
         while True:
             if self._config.streamFloatsAsIntermittent:
-                await asyncio.wait([
+                await asyncWait([
                     self._latestPositionsChanged.wait(),
                     self._targetChanged.wait(),
                 ], return_when=asyncio.FIRST_COMPLETED)
