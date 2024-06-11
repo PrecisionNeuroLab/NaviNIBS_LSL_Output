@@ -2,9 +2,9 @@ from __future__ import annotations
 import attrs
 import typing as tp
 
-from RTNaBS.Navigator.Model.Addons import AddonSessionConfig
-from RTNaBS.Navigator.Model.Session import Session
-from RTNaBS.util.attrs import attrsAsDict
+from NaviNIBS.Navigator.Model.Addons import AddonSessionConfig
+from NaviNIBS.Navigator.Model.Session import Session
+from NaviNIBS.util.attrs import attrsAsDict
 
 
 @attrs.define

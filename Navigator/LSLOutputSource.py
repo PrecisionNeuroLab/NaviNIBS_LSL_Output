@@ -8,10 +8,10 @@ import numpy as np
 import pylsl as lsl
 import pytransform3d.transformations as ptt
 
-from RTNaBS.Navigator.Model.Addons import AddonExtra
-from RTNaBS.Navigator.TargetingCoordinator import TargetingCoordinator
-from RTNaBS.util.Asyncio import asyncTryAndLogExceptionOnError, asyncWait
-from RTNaBS.util.Transforms import concatenateTransforms, applyTransform, invertTransform
+from NaviNIBS.Navigator.Model.Addons import AddonExtra
+from NaviNIBS.Navigator.TargetingCoordinator import TargetingCoordinator
+from NaviNIBS.util.Asyncio import asyncTryAndLogExceptionOnError, asyncWait
+from NaviNIBS.util.Transforms import concatenateTransforms, applyTransform, invertTransform
 
 from NaviNIBS_LSL_Output.Navigator.Model.LSLOutputConfiguration import LSLOutputConfiguration
 
