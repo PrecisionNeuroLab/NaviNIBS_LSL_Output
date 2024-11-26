@@ -1,0 +1,23 @@
+[project]
+classifiers = [
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)"
+]
+
+[tool.poetry]
+name = "NaviNIBS_LSL_Output"
+version = "0.1.0"
+description = "NaviNIBS addon for streaming data out via LSL"
+homepage = "https://github.com/PrecisionNeuroLab/NaviNIBS"
+repository = "https://github.com/PrecisionNeuroLab/NaviNIBS_LSL_Output"
+documentation = "https://precisionneurolab.github.io/navinibs-docs"
+readme = "README.md"
+authors = ["Christopher C. Cline <chriscline@users.noreply.github.com>"]
+license = "LGPL-3.0-only"
+packages = [
+    { include = "NaviNIBS_LSL_Output", from = ".." }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.12"
+navinibs = ">=0.1.5"
+

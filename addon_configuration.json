@@ -1,5 +1,6 @@
 {
   "key": "NaviNIBS_LSL_Output",
+  "addonVersion": "0.1.0",
   "Extras": {
     "LSLOutputStream": {
       "ClassName": "LSLOutputSource",
